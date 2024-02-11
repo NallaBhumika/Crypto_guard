@@ -1,0 +1,51 @@
+#index_body{
+  text-align: center;
+  font-style: italic bold;
+  color:rgb(37, 59, 59);
+  background-size: 100% 140%;
+  margin :0px;
+}
+button{
+  background-color: rgb(37,59,59);
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 20px;
+  box-shadow: 5px 7px 6px rgb(57, 110, 110);
+}
+input{
+  color: rgb(37, 58, 57);
+  font-size: 17px;
+}
+#heading{
+  font-size:60px;
+}
+.div{
+  align-content: center;
+  margin: 70px;
+}
+.li{
+  display: inline;
+}
+.container{
+  background-color: rgb(37, 59, 59);
+  display: flex;
+  flex-flow: wrap;
+  justify-content: stretch;
+  list-style-type: none;
+}
+.container a{
+  display: inline-block;
+  padding: 25px;
+  margin: 0 100px;
+  text-align: center;
+  text-decoration: none;
+  color: aliceblue;
+}
+.points,p{
+  font-size: x-large;
+}
+textarea{
+  border: 3px solid rgb(37,59,59);
+  box-shadow: 5px 7px 6px rgb(57, 110, 110)
+}

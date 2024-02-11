@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caesar Cipher Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body id="index_body">
+    <header>
+        <p id="heading">CRYPTO_GUARD</p>
+    </header>
+    <nav>
+        <ul class="container">
+            <li><a href="/">Home</a></li>
+            <li><a href="encrypt_info.html">Encrypt</a></li>
+            <li><a href="decrypt_info.html">Decrypt</a></li>
+            <li><a href="application.html">Application</a></li>
+            
+
+        </ul>
+    </nav>
+    <h1>Caesar Cipher Tool</h1>
+    <div>
+        <input type="file" name="file" id="file-input">
+        <br>
+        <br>
+        <p>Enter shift value:</p>
+        <input type="number" id="shift-input" placeholder="Enter shift value">
+        <br><br>
+        <button id="encrypt-button">Encrypt</button>
+        <br><br>
+        <button id="decrypt-button">Decrypt</button>
+    </div>
+    <div id="encrypted-output" style="display:none;">
+        <h2>Encrypted Text</h2>
+        <textarea id="encrypted-textarea" rows="25" cols="100" readonly>{{ encrypted_text }}</textarea>
+    </div>
+    <div id="decrypted-output" style="display:none;">
+        <h2>Decrypted Text</h2>
+        <textarea id="decrypted-textarea" rows="25" cols="100" readonly>{{ decrypted_text }}</textarea>
+    </div>
+
+    <script>
+        document.getElementById("encrypt-button").addEventListener("click", () => {
+            const shift = document.getElementById("shift-input").value;
+            const fileInput = document.getElementById("file-input");
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("shift", shift);
+            formData.append("file", file);
+
+            fetch("/encrypt", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("encrypted-textarea").value = data;
+                document.getElementById("encrypted-output").style.display = "block";
+            })
+            .catch(error => console.error(error));
+        });
+
+        document.getElementById("decrypt-button").addEventListener("click", () => {
+            const shift = document.getElementById("shift-input").value;
+            const encryptedText = document.getElementById("encrypted-textarea").value;
+
+            fetch("/decrypt", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `shift=${shift}&encrypted_text=${encodeURIComponent(encryptedText)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("decrypted-textarea").value = data;
+                document.getElementById("decrypted-output").style.display = "block";
+            })
+            .catch(error => console.error(error));
+        });
+    </script>
+</body>
+</html>
